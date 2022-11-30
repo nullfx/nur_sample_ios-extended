@@ -14,6 +14,7 @@ class TagInfoViewController: UITableViewController {
         case timestamp
         case frequency
         case antennaId
+        case tid
 
         // not used, as it's not valid when streaming?
         case scaledRssi
@@ -27,6 +28,7 @@ class TagInfoViewController: UITableViewController {
             case .timestamp: return "Timestamp"
             case .frequency: return "Frequency"
             case .antennaId: return "Antenna Id"
+            case .tid: return "TID"
             }
         }
    }
@@ -42,7 +44,7 @@ class TagInfoViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // match with InfoType
-        return 6
+        return 7
     }
 
 
@@ -56,7 +58,7 @@ class TagInfoViewController: UITableViewController {
         }
 
         cell.textLabel?.text = type.text
-
+        let tid = tag.tid == nil ? "" : tag.tid!
         switch type {
         case .epc: cell.detailTextLabel?.text = tag.epc
         case .channel: cell.detailTextLabel?.text = "\(tag.channel)"
@@ -65,6 +67,7 @@ class TagInfoViewController: UITableViewController {
         case .timestamp: cell.detailTextLabel?.text = "\(tag.timestamp)"
         case .frequency: cell.detailTextLabel?.text = "\(tag.frequency) Hz"
         case .antennaId: cell.detailTextLabel?.text = "\(tag.antennaId)"
+        case .tid: cell.detailTextLabel?.text = "\(tid)"
         }
 
         return cell

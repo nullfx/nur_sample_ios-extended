@@ -10,6 +10,7 @@ struct Tag : CustomDebugStringConvertible, Comparable {
     let timestamp: UInt16
     let frequency: UInt32
     let channel: UInt8
+    var tid: String?
 
     var debugDescription: String {
         return "[Tag \(epc)]"
