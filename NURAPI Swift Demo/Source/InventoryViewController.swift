@@ -188,53 +188,6 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
                 }
             }
         }
-        //bytes.map{ UInt8($0) }
-        //                raw.bindMemory(to: UInt8.self)
-        //                let bytes = Array(raw)
-        
-        //            withUnsafe Pointer(to: tagData.epc) { ptr in
-        //                for f in ptr {}
-        //
-        //                let buf = UnsafeBufferPointer(start: ptr, count: Int(tagData.epcLen))
-        //                let bytes = Array(buf)
-        //                print(bytes)
-        //            }
-        
-        //                buf.withMemoryRebound(to: [UInt8].self) { epcData in
-        //                    let bytes = Array(epcData)
-        //
-        //                    // create a hex string from the bytes
-        //                    let epc = bytes.reduce( "", { result, byte in
-        //                        result + String(format:"%02x", byte )
-        //                    })
-        //
-        //                    // emit a tag to any optional handler
-        //                    let tag = Tag(epc: epc, rssi: tagData.rssi, scaledRssi: tagData.scaledRssi, antennaId: tagData.antennaId, timestamp: tagData.timestamp, frequency: tagData.freq, channel: tagData.channel )
-        //
-        //                    // update the loca tags
-        //                    DispatchQueue.main.async {
-        //                        self.tags.append(tag)
-        //                        self.tagsFoundLabel.text = String(self.tags.count)
-        //                        self.tableView.reloadData()
-        //                    }
-        //                }
-        //            }
-        //            let buf = UnsafeBufferPointer(start: &tagData.epc.0, count: Int(tagData.epcLen))
-        //            let bytes: [UInt8] = Array(buf.map({ UInt8($0) }))
-        //
-        //            // create a hex string from the bytes
-        //            let epc = bytes.reduce( "", { result, byte in
-        //                result + String(format:"%02x", byte )
-        //            })
-        //
-        //            // emit a tag to any optional handler
-        //            let tag = Tag(epc: epc, rssi: tagData.rssi, scaledRssi: tagData.scaledRssi, antennaId: tagData.antennaId, timestamp: tagData.timestamp, frequency: tagData.freq, channel: tagData.channel )
-        //            DispatchQueue.main.async {
-        //                self.tags.append(tag)
-        //                self.tagsFoundLabel.text = String(self.tags.count)
-        //                self.tableView.reloadData()
-        //            }
-        
         
         // clear all tags
         _ = checkError(NurApiClearTags(handle), message: "Failed to clear tag storage" )
@@ -249,37 +202,6 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
         
         print("tags fetched")
         
-        
-        //        if !checkError(NurApiLockTagStorage(handle, true), message: "Failed to lock tag storage" ) {
-        //            return
-        //        }
-        //
-        //        // read all found tags
-        //        var tagData = NUR_TAG_DATA()
-        //        for index in 0 ..< tagCount {
-        //            if !checkError( NurApiGetTagData(handle, index, &tagData ), message: "Failed to fetch tag \(index)/\(tagCount)") {
-        //                // failed to fetch tag
-        //                return
-        //            }
-        //
-        //
-        //            // convert the tag data into an array of "bytes"
-        //            let buf = UnsafeBufferPointer(start: &tagData.epc.0, count: Int(tagData.epcLen))
-        //            let bytes: [UInt8] = Array(buf.map({ UInt8($0) }))
-        //
-        //            // create a hex string from the bytes
-        //            let epc = bytes.reduce( "", { result, byte in
-        //                result + String(format:"%02x", byte )
-        //            })
-        //
-        //            // emit a tag to any optional handler
-        //            let tag = Tag(epc: epc, rssi: tagData.rssi, scaledRssi: tagData.scaledRssi, antennaId: tagData.antennaId, timestamp: tagData.timestamp, frequency: tagData.freq, channel: tagData.channel )
-        //            DispatchQueue.main.async {
-        //                self.tags.append(tag)
-        //                self.tagsFoundLabel.text = String(self.tags.count)
-        //                self.tableView.reloadData()
-        //            }
-        //        }
     }
     
     // add a new handle tag ex function to handle the notification
