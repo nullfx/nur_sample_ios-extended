@@ -2,6 +2,8 @@
 import UIKit
 import NurAPIBluetooth
 
+let TID_LENGTH: UInt32 = 6
+
 class InventoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BluetoothDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -40,11 +42,22 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
 
                 // first clear the tags
                 NurApiClearTags( handle )
-
-                if self.checkError( NurApiStartInventoryStream(handle, self.rounds, self.q, self.session ), message: "Failed to start inventory stream" ) {
-                    // started ok
-                    DispatchQueue.main.async {
-                        self.inventoryButton.setTitle("Stop", for: UIControl.State.normal)
+		// Inventory ex parameters let are where you specify the q/session/rounds normally passed in to Start Inventory Session
+                var params = NUR_INVEX_PARAMS(Q: self.q, session: self.session, rounds: self.rounds, transitTime: Int32(0), inventoryTarget: Int32(NUR_INVTARGET_AB.rawValue), inventorySelState: Int32(NUR_SELSTATE_ALL.rawValue))
+                var filters = NUR_INVEX_FILTER()
+                filters.truncate = false
+                filters.address = 0
+                filters.bank = UInt8(NUR_BANK_TID.rawValue)
+                let tidLength = UInt32(TID_LENGTH)
+		// When calling the inventory function that returns extra data (user data / TID) you have to call
+		// InventoryRead first...
+                if self.checkError( NurApiInventoryRead(handle, true, NUR_IR_EPCDATA.rawValue, UInt32(NUR_BANK_TID.rawValue), UInt32(0), tidLength), message: "Failed to start inventory read" ) {
+		    // then call the StartInventoryEx passing in the filters and inventory ex parameters
+                    if self.checkError(NurApiStartInventoryEx(handle, &params, &filters, Int32(1) ), message: "Failed to start inventory stream" ) {
+                        // started ok
+                        DispatchQueue.main.async {
+                            self.inventoryButton.setTitle("Stop", for: UIControl.State.normal)
+                        }
                     }
                 }
             }
@@ -94,7 +107,12 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
         switch NUR_NOTIFICATION(rawValue: UInt32(type)) {
         case NUR_NOTIFICATION_INVENTORYSTREAM:
             handleTag(data: data, length: length)
-
+            break
+        // add a case (could really just replace the one above, since i'm replacing the normal inventory
+	// for the inventory ex version here...
+	case NUR_NOTIFICATION_INVENTORYEX:
+            handleTagEx(data: data, length: length)
+            break
         default:
             NSLog("received notification: \(type)")
             break
@@ -262,5 +280,46 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
 //                self.tableView.reloadData()
 //            }
 //        }
+    }
+    
+    // add a new handle tag ex function to handle the notification
+    private func handleTagEx (data: LPVOID!, length: Int32) {
+        guard let handle: HANDLE = Bluetooth.sharedInstance().nurapiHandle else {
+            return
+        }
+
+        // get number of tags read in this round
+        var tagCount: Int32 = 0
+        if !checkError(NurApiGetTagCount(handle, &tagCount), message: "Failed to clear tag storage" ) {
+            return
+        }
+
+        print("tags found: \(tagCount)")
+        
+        if(tagCount < 1) { return }
+        
+	// iterate over the found tags, and look at the tag structure (containing the EPC)
+        for i in 0 ... tagCount {
+            var tag = NUR_TAG_DATA_EX()
+	    
+	    // fetch the TID (or user data if we set it up to read user data in the EX parameters)
+            NurApiGetTagDataEx(handle, i, &tag, UInt32(MemoryLayout.size( ofValue: tag)))
+
+	    // use the utility to extract the tid from the tag
+            var tidData = [UInt8](Utility.getEpcDataEx(tag))
+	    // convert the tid to a hex string
+            var tidString = tidData.map { String(format: "%02x", $0) }.joined().uppercased()
+	    // just print it out to the console...
+            print("Tag EPC: \(tag.epc), Tag TID: \(tidString)")
+        }
+                
+
+
+        // clear all tags
+        _ = checkError(NurApiClearTags(handle), message: "Failed to clear tag storage" )
+        _ = checkError(NurApiLockTagStorage(handle, false), message: "Failed to unlock tag storage" )
+
+        print("tags fetched")
+
     }
 }
