@@ -19,6 +19,7 @@
 		6F9E8D831D7F2D8F00512C56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F9E8D811D7F2D8F00512C56 /* LaunchScreen.storyboard */; };
 		6FB6838925F767D600945C66 /* NurAPIBluetooth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB6838825F767D600945C66 /* NurAPIBluetooth.xcframework */; };
 		6FB6838A25F767D600945C66 /* NurAPIBluetooth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB6838825F767D600945C66 /* NurAPIBluetooth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AAF6FAC129373A22005490DD /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6FABF29373A22005490DD /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,8 @@
 		6F9E8D841D7F2D8F00512C56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F9E8DD21D809B9100512C56 /* NURAPI Swift Demo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NURAPI Swift Demo-Bridging-Header.h"; sourceTree = "<group>"; };
 		6FB6838825F767D600945C66 /* NurAPIBluetooth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = NurAPIBluetooth.xcframework; path = ../NurAPIBluetooth.xcframework; sourceTree = "<group>"; };
+		AAF6FABF29373A22005490DD /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		AAF6FAC029373A22005490DD /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 		6F9E8D771D7F2D8F00512C56 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AAF6FAC029373A22005490DD /* Utility.h */,
+				AAF6FABF29373A22005490DD /* Utility.m */,
 				6F6E265E20A1A70200DC5193 /* Tag.swift */,
 				6F9E8D781D7F2D8F00512C56 /* AppDelegate.swift */,
 				6F9E8D7F1D7F2D8F00512C56 /* Assets.xcassets */,
@@ -191,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAF6FAC129373A22005490DD /* Utility.m in Sources */,
 				6F6E265B20A1A09E00DC5193 /* MainViewController.swift in Sources */,
 				6F6E265D20A1A3A900DC5193 /* InventoryViewController.swift in Sources */,
 				6F6E265F20A1A70200DC5193 /* Tag.swift in Sources */,
@@ -346,7 +352,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = VGSJJLLG7M;
+				DEVELOPMENT_TEAM = 69QTP6RBYY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -373,7 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = VGSJJLLG7M;
+				DEVELOPMENT_TEAM = 69QTP6RBYY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
