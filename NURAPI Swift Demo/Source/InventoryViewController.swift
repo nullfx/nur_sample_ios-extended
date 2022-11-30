@@ -85,7 +85,6 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
         
         let tag = tags[indexPath.row]
         cell.textLabel?.text = tag.epc
-        cell.detailTextLabel?.text = tag.tid
         return cell
     }
     
