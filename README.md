@@ -1,5 +1,8 @@
 # Sample NURAPI applications for iOS
 
+## Updates from main Nordic ID Sample
+This fork contains a minor modification to the swift demo project.  The main sample shows how to peform standard inventory.  It obtains the tag EPC, this demo demonstrates how to call the InventoryEX which unlike most other devices will provide you with the tags EPC along with either the tag's TID (which this sample shows) or some portion of the tags USER data.  The demo can be changed from TID to USER data by changing the `NUR_INVEX_FILTER` bank from `NUR_BANK_TID` to `NUR_BANK_USER` and switching the 4th parameter in `NurApiInventoryRead` to this as well.
+
 ## NurAPI Bluetooth framework
 
 The framework provides an interface that works as a bridge between the NurAPI and the iOS Bluetooth stack.

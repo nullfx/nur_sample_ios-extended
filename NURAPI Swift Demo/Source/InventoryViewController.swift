@@ -47,7 +47,7 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
                 var filters = NUR_INVEX_FILTER()
                 filters.truncate = false
                 filters.address = 0
-                filters.bank = UInt8(NUR_BANK_TID.rawValue)
+                filters.bank = UInt8(NUR_BANK_USER.rawValue)
                 let tidLength = UInt32(TID_LENGTH)
                 // When calling the inventory function that returns extra data (user data / TID) you have to call
                 // InventoryRead first...
@@ -105,11 +105,6 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
     func notificationReceived(_ timestamp: DWORD, type: Int32, data: LPVOID!, length: Int32) {
         print("received notification: \(type)")
         switch NUR_NOTIFICATION(rawValue: UInt32(type)) {
-        case NUR_NOTIFICATION_INVENTORYSTREAM:
-            handleTag(data: data, length: length)
-            break
-            // add a case (could really just replace the one above, since i'm replacing the normal inventory
-            // for the inventory ex version here...
         case NUR_NOTIFICATION_INVENTORYEX:
             handleTagEx(data: data, length: length)
             break
