@@ -3,7 +3,6 @@
 //  NURAPI Swift Demo
 //
 //  Created by Steve on 11/30/22.
-//  Copyright © 2022 Jan Ekholm. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
