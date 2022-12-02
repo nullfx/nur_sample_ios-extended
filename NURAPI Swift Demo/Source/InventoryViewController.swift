@@ -47,7 +47,7 @@ class InventoryViewController: UIViewController, UITableViewDataSource, UITableV
                 var filters = NUR_INVEX_FILTER()
                 filters.truncate = false
                 filters.address = 0
-                filters.bank = UInt8(NUR_BANK_USER.rawValue)
+                filters.bank = UInt8(NUR_BANK_TID.rawValue)
                 let tidLength = UInt32(TID_LENGTH)
                 // When calling the inventory function that returns extra data (user data / TID) you have to call
                 // InventoryRead first...
