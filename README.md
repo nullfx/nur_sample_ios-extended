@@ -1,7 +1,7 @@
 # Sample NURAPI applications for iOS
 
 ## Updates from main Nordic ID Sample
-This fork contains a minor modification to the swift demo project.  The main sample shows how to peform standard inventory.  It obtains the tag EPC, this demo demonstrates how to call the InventoryEX which unlike most other devices Nordic ID will provide you with the tag data containing EPC along with either the tag's TID (which this sample shows) or some portion of the tags USER data in one pass (pretty nice actually all things considered).  While the one pass inventory is limited to small secondary tag banks (like TID or small user data blocks) its nice to get everything in one scan, vs having to query tags one at a time after the fact IMO.
+This fork contains a minor modification to the swift demo project.  The main sample shows how to perform standard inventory.  It obtains the tag EPC, this demo demonstrates how to call the InventoryEX which unlike most other devices Nordic ID will provide you with the tag data containing EPC along with either the tag's TID (which this sample shows) or some portion of the tags USER data in one pass (pretty nice actually all things considered).  While the one pass inventory is limited to small secondary tag banks (like TID or small user data blocks) its nice to get everything in one scan, vs having to query tags one at a time after the fact IMO.
 
 The demo can be changed from TID to USER data by changing the `NUR_INVEX_FILTER` bank from `NUR_BANK_TID` to `NUR_BANK_USER` and switching the 4th parameter in `NurApiInventoryRead` to the `NUR_BANK_USER` constant as well.
 
